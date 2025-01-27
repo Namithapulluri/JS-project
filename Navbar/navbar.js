@@ -1,71 +1,117 @@
-// Patterns
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordPattern = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
- // At least 1 letter, 1 number, 1 special character, minimum 8 characters
-const usernamePattern = /^[a-zA-Z0-9_]{3,20}$/; // Alphanumeric and underscores, 3-20 characters
 
-// Sign Up Function
-function signup() {
-  Swal.fire({
-    title: 'Sign Up',
-    html: `
-      <input type="text" id="username" class="swal2-input" placeholder="Username">
-      <input type="text" id="email" class="swal2-input" placeholder="Email">
-      <input type="password" id="password" class="swal2-input" placeholder="Password">
-    `,
-    confirmButtonText: 'Sign Up',
-    focusConfirm: false,
-    preConfirm: () => {
-      const username = document.getElementById('username').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
 
-      if (!usernamePattern.test(username)) {
-        Swal.showValidationMessage('Username must be 3-20 characters, alphanumeric or underscores only');
-      } else if (!emailPattern.test(email)) {
-        Swal.showValidationMessage('Invalid email format');
-      } else if (!passwordPattern.test(password)) {
-        Swal.showValidationMessage('Password must be at least 8 characters, include letters, numbers, and special characters');
-      } else {
-        return { username, email, password };
-      }
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire('Success', 'Sign Up Complete!', 'success');
-    }
-  });
+
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+  import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDbjDTAO6RvjVEINQmb4_ZilkFti-sEW6s",
+    authDomain: "jsproject-2.firebaseapp.com",
+    projectId: "jsproject-2",
+    storageBucket: "jsproject-2.firebasestorage.app",
+    messagingSenderId: "825089000631",
+    appId: "1:825089000631:web:eb9984acab31b75b2c3932",
+    measurementId: "G-3TK78M2BZ6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const author=getAuth(app)
+
+
+let signUpBtn=document.getElementById("signUpBtn");
+signUpBtn.addEventListener("click",(e)=>{
+    e.preventDefault()
+let signUpModal=new bootstrap.Modal(document.getElementById("signUpModal"));
+signUpModal.show()
+
+
+let signUpSubmitBtn=document.getElementById("signUpSubmitBtn");
+signUpSubmitBtn.addEventListener("click",async()=>{
+
+    
+let sNameFromModal=document.getElementById("signup-name").value.trim();
+let sEamilFromModal=document.getElementById("signup-email").value.trim();
+let sPasswordFromModal=document.getElementById("signup-password").value.trim();
+
+if(sEamilFromModal === "" || sNameFromModal==="" || sPasswordFromModal === ""){
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "enter all fields",
+      }).then(()=>{
+        signUpModal.show()
+      })
+      return;
 }
-
-// Log In Function with Confirm Password
-function login() {
-  Swal.fire({
-    title: 'Log In',
-    html: `
-      <input type="text" id="username" class="swal2-input" placeholder="Username">
-      <input type="password" id="password" class="swal2-input" placeholder="Password">
-      <input type="password" id="confirmPassword" class="swal2-input" placeholder="Confirm Password">
-    `,
-    confirmButtonText: 'Log In',
-    focusConfirm: false,
-    preConfirm: () => {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-
-      if (!username) {
-        Swal.showValidationMessage('Username cannot be empty');
-      } else if (!passwordPattern.test(password)) {
-        Swal.showValidationMessage('Password must be at least 8 characters, include letters, numbers, and special characters');
-      } else if (password !== confirmPassword) {
-        Swal.showValidationMessage('Passwords do not match');
-      } else {
-        return { username, password };
-      }
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire('Welcome Back', 'Login Successful!', 'success');
-    }
-  });
+try{
+          await createUserWithEmailAndPassword(author,sEamilFromModal,sPasswordFromModal).then(()=>{
+            Swal.fire({
+                title: "registered successfully!",
+                icon: "success",
+              }).then(()=>{
+                document.getElementById("signup-name").textContent=""
+                document.getElementById("signup-email").textContent=""
+                document.getElementById("signup-password").textContent=""
+                // location.href="./shop-now.html"
+              })
+          })
+}catch(err){
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err,
+      }).then(() => {
+        signUpModal.hide()
+        
+      })
+      return;
 }
+})
+})
+
+
+let loginBtn=document.getElementById("loginBtn");
+loginBtn.addEventListener("click",(e)=>{
+    e.preventDefault()
+let loginModal=new bootstrap.Modal(document.getElementById("loginModal"));
+loginModal.show()
+
+let loginSubmitBtn=document.getElementById("loginSubmitBtn");
+loginSubmitBtn.addEventListener("click",async()=>{
+
+let sEamilFromModal=document.getElementById("login-email").value.trim();
+let sPasswordFromModal=document.getElementById("login-password").value.trim();
+
+if(sEamilFromModal === ""  || sPasswordFromModal === ""){
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "enter all fields",
+      }).then(()=>{
+        loginModal.show()
+      })
+      return;
+}
+try{
+          await signInWithEmailAndPassword(author,sEamilFromModal,sPasswordFromModal).then(()=>{
+            Swal.fire({
+                title: "logged successfully!",
+                icon: "success",
+              }).then(()=>{
+               
+                document.getElementById("login-email").textContent=""
+                document.getElementById("login-password").textContent=""
+                location.href="./shop-now.html"
+              })
+          })
+}catch(err){
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err,
+      })
+}
+})
+})

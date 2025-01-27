@@ -4,42 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" type="image/png" href="../../../Documents/Favicon.jpg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="./navbar.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
-    <!-- As a link -->
-<!-- <nav class="navbar bg-body-tertiary">
+<div id="background " >
+  <nav class="navbar ">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-    </div>
-  </nav> -->
-  
-  <!-- As a heading -->
-  
-  <nav class="navbar">
-    <div class="container-fluid " >
-      <span class="navbar-brand mb-0 h1" style="color: white;"><i class="fa-solid fa-book"></i>BookHub</span>
-      <!-- <div>
-      <span><label for="search">Search:</label></span>
-      <span><input type="search" id="search" placeholder="Search Here..."></span></div> -->
+      <span class="navbar-brand mb-0 h1" id="logo" style="color: white;"><i class="fa-solid fa-book"></i>BookHub</span>
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <button class="nav-link active text-dark" aria-current="page" href="#" id="signup" onclick="signup()">Sign Up</button>
+          <button class="nav-link active text-dark" aria-current="page" href="#" id="signUpBtn">Sign Up</button>
         </li>
         <li class="nav-item ">
-          <button class="nav-link text-dark" href="#" id="login" onclick="login()">Login</button>
+          <button class="nav-link text-dark" href="#" id="loginBtn">Login</button>
         </li>
-        
-        
       </ul>
     </div>
   </nav>
+<br> <br> <br>
 
-    <script src="./navbar.js"></script>
-    <script type="module" src="../SignUp/signup.js"></script>
-    
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">SignUp</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="signup-name" placeholder="Name Here...">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Email</label>
+            <input class="form-control" type="email" id="signup-email" placeholder="Email Here..."></input>
+          </div>
+          <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password</label>
+              <input class="form-control" type="password" id="signup-password" placeholder="Password Here..."></input>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary" id="signUpSubmitBtn">SignUp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+       
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Email</label>
+            <input class="form-control" type="email" id="login-email" placeholder="Email Here..."></input>
+          </div>
+          <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password</label>
+              <input class="form-control" type="password" id="login-password" placeholder="Password Here..."></input>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary" id="loginSubmitBtn">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="text-content"  style="color: white">
+      <h1 class="offer-text">Upto 75% Off</h1>
+      <p class="offer-text">Welcome to <b class="offer-text">BookHub</b>, your ultimate destination for books at unbeatable prices! 
+        Enjoy an incredible 75% off on a wide range of genres, from bestsellers to hidden gems.</p>
+      <p class="offer-text"> Discover the joy of reading without breaking the bank. Shop now and fill your shelves with stories you'll love!
+      </p>
+      <button> <a href="./../Shop-Now/shop-now.html" target="_blank" class="shop-btn">Shop Now </a></button>
+    </div> <br> <br>
+<div class="img-container">
+  <img src="../../Avengers Book .jpg" alt="Book 1" id="img-1" height="300px">
+  <img src="../../Chernobyl book.jpg" alt="Book 2" id="img-2" height="300px">
+  <img src="../../GOT book.jpg" alt="Book 3" id="img-3" height="300px">
+  <img src="../../Harry Potter Book.jpg" alt="Book 4" id="img-4" height="300px">
+</div>
+</div>
+</div>
+
+    <!-- <script src="./navbar.js"></script> -->
+    <script type="module" src="./navbar.js"></script>
+    <!-- <div class="slide"><img src="../../Iron Man Book.jpg" alt="Book 5"></div>
+      <div class="slide"><img src="../../Sherlock Holmes Book.jpg" alt="Book 6"></div> -->
 </body>
 </html>
